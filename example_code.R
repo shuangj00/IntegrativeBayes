@@ -47,11 +47,13 @@ delta.mat = delta.mat[,feature.remain]
 # ========================================================================================
 S.iter = 10000
 burn.in = 0.5
+mu0.start = 10
 res = zinb_w_cov(Y_mat = Y.input,
                  z_vec = z.vec, 
                  s_vec = s.input,
                  X_mat = X.mat,
-                 S = S.iter, burn_rate = burn.in)
+                 S = S.iter, burn_rate = burn.in,
+                 mu0_mean = mu0.start)
 # The MCMC outputs are stored in res
 # $`mu0 est`: posterior mean(after burn-in) for the vector mu(0j)
 # $`phi est`: posterior mean(after burn-in) for the dispersion parameter vector
