@@ -21,12 +21,12 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
              double tau_mu0 = 1, 
              double tau_phi = 1, 
              double tau_beta = 1,
-             double a_omega = 1, double b_omega = 1, // uniform prior
+             double a_omega = 0.2, double b_omega = 1.8, // uniform prior 
              double a_pi = 1, double b_pi = 1, // control the sparsity of R matrix
-             double a_p = 1, double b_p = 1, // control the sparsity of Delta matrix
-             double a_mu = 3, double b_mu = 20, // spike and slab for mu_kj
-             double a_phi = 10, double b_phi = 1, // dispersion parameter
-             double a_beta = 3, double b_beta = 20, // spike and slab for beta_rj
+             double a_p = 0.4, double b_p = 1.6, // control the sparsity of Delta matrix
+             double a_mu = 2, double b_mu = 10, // spike and slab for mu_kj
+             double a_phi = 1, double b_phi = 0.01, // dispersion parameter
+             double a_beta = 2, double b_beta = 10, // spike and slab for beta_rj
              double phi_low = 1, 
              double beta_lim = 5
 ){
