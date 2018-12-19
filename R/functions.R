@@ -1,5 +1,10 @@
-#### preprocessing for the observed count matrix Y ####
-#### drop off the feature has less than 2 observations for each sample group
+#' Fitler count matrix
+#'
+#' Drop off the feature has less than 2 observations for each sample group
+#' @param Ycount a n-by-p count matrix Y, where n is the number of samples and p is the number of taxa(feature)
+#' @param zvec group vector
+#' @param min.number minimal read counts
+#' @export
 Y.filter = function(Ycount, zvec, min.number = 2){
   n = dim(Ycount)[1];p = dim(Ycount)[2]
   K = 2
@@ -23,14 +28,14 @@ Y.filter = function(Ycount, zvec, min.number = 2){
   if(sum(filter.vec)!=p){
     cat("Feature", which(filter.vec == 0), "are dropped. \n")
   }
-  return(list(feature.keep = filter.vec, 
+  return(list(feature.keep = filter.vec,
               Y.filter = Ycount[, filter.vec == 1]))
 }
 
-
-
-
-#### estimate size factor s(vector) ####
+#' estimate size factor s(vector)
+#'
+#' @param Ycount a n-by-p count matrix Y, where n is the number of samples and p is the number of taxa(feature)
+#' @export
 sizefactor.estimator = function(Ycount){
   n = dim(Ycount)[1]; p = dim(Ycount)[2]
   # get sample 50% quantiles aftering removing all 0's
@@ -51,10 +56,10 @@ sizefactor.estimator = function(Ycount){
   return(si.est)
 }
 
-
-
-
-#### calculate the threshold for gamma / delta for FDR control ####
+#' calculate the threshold for gamma / delta for FDR control
+#' @param PPI posterior probability of inclusion
+#' @param alpha usually 0.05
+#' @export
 BayFDR <- function(PPI, alpha){
   PPI_sorted = sort(PPI,decreasing = TRUE)
   k = 1
@@ -72,22 +77,24 @@ BayFDR <- function(PPI, alpha){
   return(return.value)
 }
 
-
-
-
-#### Visualizition functions ####
+#' Visualizition functions
+#'
+#' @param gammaPPI.raw vector of PPI
+#' @param gamma.true XXX
+#' @param sig.level significant level
+#' @export
 gamma_VS = function(gammaPPI.raw, gamma.true, sig.level = 0.05){
   th.gamma = BayFDR(gammaPPI.raw, sig.level)
   #### plot ####
   layout(rbind(1,2), heights=c(7,1))  # put legend on bottom 1/8th of the chart
-  plot(round(gammaPPI.raw,2), type='h', ylim = c(0,1), 
-       ylab = "Posterior Probability of Inclusion",xlab = "Feature Index", 
+  plot(round(gammaPPI.raw,2), type='h', ylim = c(0,1),
+       ylab = "Posterior Probability of Inclusion",xlab = "Feature Index",
        main = expression(paste("Evaluation of the Feature Selection for ", gamma)))
   abline(h = th.gamma,lty = 2,col = 'darkred')
   # ppi for disc features:
   disc.ppi = gammaPPI.raw[gamma.true==1]
   # plots:
-  points(gammaPPI.raw,col = ifelse(gamma.true==1,'red','grey'), 
+  points(gammaPPI.raw,col = ifelse(gamma.true==1,'red','grey'),
          pch = ifelse(gamma.true==1,20,16), cex = ifelse(gamma.true==1,1, 0.5))
   # setup for no margins on the legend
   par(mar=c(0, 0, 0, 0))
@@ -96,13 +103,15 @@ gamma_VS = function(gammaPPI.raw, gamma.true, sig.level = 0.05){
   legend(x = 'center',c("True Discriminating Feature","Non-discriminating Feature"),
         pch = c(20, 16),col=c('red','grey'),ncol=2,bty ="n" ,cex = 0.75)
 }
-####
+
+#' Draw ROC curve
+#'
+#' @param deltaPPI.raw raw values of PPI
+#' @param delta.true XXX
+#' @export
 delta_ROC = function(deltaPPI.raw, delta.true){
-  library(pROC)
-  roc.delta = roc(response = delta.true, predictor = deltaPPI.raw, 
+  roc.delta = roc(response = delta.true, predictor = deltaPPI.raw,
                   auc = T)
   plot.roc(roc.delta,print.auc=TRUE,main = expression(paste("ROC plot for estimating ", delta)))
 }
-
-
 

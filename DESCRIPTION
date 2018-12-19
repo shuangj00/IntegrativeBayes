@@ -1,0 +1,22 @@
+Package: IntegrativeBayes
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: person(given = "Shuang",
+           family = "Jiang",
+           role = c("aut", "cre"),
+           email = "shuangj@mail.smu.edu")
+Maintainer: Xiaowei Zhan <zhanxw@gmail.com>
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+LinkingTo: 
+    Rcpp,RcppArmadillo
+Imports: 
+    Rcpp
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+Depends: pROC
+VignetteBuilder: knitr
