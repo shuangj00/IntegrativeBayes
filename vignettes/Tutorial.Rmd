@@ -1,18 +1,20 @@
 ---
-title: "Integrative Bayes Model"
-author: "Shuang Jiang et al"
-date: "12/03/2018"
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    theme: yeti
-    keep_md: true
----
+ title: "Integrative Bayes Model"
+ author: "Shuang Jiang et al"
+ date: "12/03/2018"
+ output: rmarkdown::html_vignette
+ vignette: >
+   %\VignetteIndexEntry{Vignette Title}
+   %\VignetteEngine{knitr::rmarkdown}
+   %\VignetteEncoding{UTF-8}
+ ---
 
-
-
+ ```{r setup, include = FALSE}
+ knitr::opts_chunk$set(
+   collapse = TRUE,
+   comment = "#>"
+ )
+ ```
 # Tutorial
 
 The following script is used to fit micribiome count data and covariate data to the 
@@ -30,49 +32,28 @@ of taxa(feature)
 You also need to install `Rcpp`, `RcppArmadillo` and `pROC` packages.
 
 ##  Load functions & data matrices
-
-```r
-Rcpp::sourceCpp('ZINBwCOV.cpp');
-source('functions.R');
-load("Example_data.Rdata");
+```{r load}
+library(IntegrativeBayes)
+load(system.file("extdata/Example_data.Rdata", package = "IntegrativeBayes"));
 ```
 
 ## Preprocessing
-
-```r
+```{r preprocess}
 # keep the features that have at least 2 observed counts for both groups:
 Y.input = Y.filter(Y.mat, zvec = z.vec, min.number = 2)[[2]]
-```
-
-```
-## 296 out of 300 features are kept. 
-## Feature 43 81 276 289 are dropped.
-```
-
-```r
 # estimate the size factor s from the count matrix Y:
 s.input = sizefactor.estimator(Y.mat)
 ```
 
 ## Get true label for later visualization
-
-```r
+```{r label}
 feature.remain = which(Y.filter(Y.mat, zvec = z.vec, min.number = 2)[[1]] == 1)
-```
-
-```
-## 296 out of 300 features are kept. 
-## Feature 43 81 276 289 are dropped.
-```
-
-```r
 gamma.vec = gamma.vec[feature.remain]
 delta.mat = delta.mat[,feature.remain]
 ```
 
 ## Implement MCMC algorithm
-
-```r
+```{r mcmc}
 S.iter = 10000
 burn.in = 0.5
 mu0.start = 10
@@ -82,19 +63,6 @@ res = zinb_w_cov(Y_mat = Y.input,
                  X_mat = X.mat,
                  S = S.iter, burn_rate = burn.in,
                  mu0_mean = mu0.start)
-```
-
-```
-## 0% has been done
-## 10% has been done
-## 20% has been done
-## 30% has been done
-## 40% has been done
-## 50% has been done
-## 60% has been done
-## 70% has been done
-## 80% has been done
-## 90% has been done
 ```
 
 The MCMC outputs are stored in `res`:
@@ -115,14 +83,8 @@ The MCMC outputs are stored in `res`:
 
 The stem-plot showed the selected features passing Bayesian FDR threshold.
 
-
-```r
+```{r visualization}
 gamma_VS(res$`gamma PPI`, gamma.true = gamma.vec)
-```
-
-![](Tutorial-figs/figvisualization-1.png)<!-- -->
-
-```r
 par(mar=c(5.1, 4.1, 4.1, 2.1))
 ```
 
@@ -130,27 +92,9 @@ par(mar=c(5.1, 4.1, 4.1, 2.1))
 
 The ROC plot was used to benchmark the performance of detecting microbiome-covariate associations.
 
-
-```r
+```{r visualization2}
 delta_ROC(as.vector(res$`delta PPI`), as.vector(abs(delta.mat)))
 ```
-
-```
-## Type 'citation("pROC")' for a citation.
-```
-
-```
-## 
-## Attaching package: 'pROC'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     cov, smooth, var
-```
-
-![](Tutorial-figs/figvisualization2-1.png)<!-- -->
 
 
 # Citation

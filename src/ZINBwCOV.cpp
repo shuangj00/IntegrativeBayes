@@ -9,8 +9,8 @@ double unif_rs(double a, double b);
 double exp_rs(double a, double b);
 double rnorm_trunc(double mu, double sigma, double lower, double upper);
 
-// [[Rcpp::export]]
 // main function
+// [[Rcpp::export]]
 List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
              NumericVector z_vec, 
              NumericVector s_vec,
@@ -209,7 +209,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
             }
           }
           log_mh = log_mh + log_mh_prior;
-          if(log_mh > log(double(rand()%10001)/10000)){
+          if(log_mh > log(runif(1.0)(0))){
             phi_tmp[j] = phi_star;
             accpt_phi = accpt_phi + 1;
             if(s >= S_burn) {
@@ -239,7 +239,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
             }
           }
           log_mh = log_mh + log_mh_prior;
-          if(log_mh > log(double(rand()%10001)/10000)){
+          if(log_mh > log(runif(1.0)(0))){
             phi_tmp[j] = phi_star;
             accpt_phi = accpt_phi + 1;
             if(s >= S_burn) {
@@ -290,7 +290,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
           // hasting ratio:
           log_mh = log_mh + log_mu0_prior;
           
-          if(log_mh > log(double(rand()%10001)/10000)){
+          if(log_mh > log(runif(1.0)(0))){
             mu0_tmp[j] = mu0_star;
             accpt_mu0 = accpt_mu0 + 1;
             mu0_mat(s, j) = mu0_star;
@@ -320,7 +320,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
           }
           // hasting ratio:
           log_mh = log_mh + log_mu0_prior;
-          if(log_mh > log(double(rand()%10001)/10000)){
+          if(log_mh > log(runif(1.0)(0))){
             mu0_tmp[j] = mu0_star;
             accpt_mu0 = accpt_mu0 + 1;
             mu0_mat(s, j) = mu0_star;
@@ -347,9 +347,9 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
       int num_ft_tmp = sum(gamma_tmp);
       ///// Variable selection /////
       // propose a feature to change 1 <-> 0 //:
-      int j_cand = rand()%p;
+      int j_cand = runif(p)(0); // rand()%p;
       while(J_filter[j_cand] != 1) {
-        j_cand = rand()%p;
+        j_cand = runif(p)(0); // rand()%p;
       }
       // update current gamma vector:
       gamma_tmp[j_cand] = 1 - gamma_tmp[j_cand];
@@ -396,7 +396,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         
         // get the hasting ratio:
         log_mh = log_mh + log_prior + log_trans;
-        if(log_mh > log(double(rand()%10001)/10000))
+        if(log_mh > log(runif(1.0)(0)))
         {
           accpt_mu_kj = accpt_mu_kj + 1;
           accpt_gamma = accpt_gamma + 1;
@@ -443,7 +443,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         
         // get the hasting ratio:
         log_mh = log_mh + log_prior + log_trans;
-        if(log_mh > log(double(rand()%10001)/10000))
+        if(log_mh > log(runif(1.0)(0)))
         {
           accpt_mu_kj = accpt_mu_kj + 1;
           accpt_gamma = accpt_gamma + 1;
@@ -606,7 +606,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         // (1) between model update:
         for(int ss = 0; ss < num_cov; ss++){
           int num_cov_tmp = sum(delta_current);
-          int r_cand = rand()%R;
+          int r_cand = runif(R)(0); // rand()%R;
           delta_current[r_cand] = 1 - delta_current[r_cand];
           if(delta_current[r_cand] == 1){
             // add:
@@ -643,7 +643,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
               
-              if(log_mh > log(double(rand()%10001)/10000))
+              if(log_mh > log(runif(1.0)(0)))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -666,7 +666,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
-              if(log_mh > log(double(rand()%10001)/10000))
+              if(log_mh > log(runif(1.0)(0)))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -710,7 +710,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
               
-              if(log_mh > log(double(rand()%10001)/10000))
+              if(log_mh > log(runif(1.0)(0)))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -732,7 +732,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
-              if(log_mh > log(double(rand()%10001)/10000))
+              if(log_mh > log(runif(1.0)(0)))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -795,7 +795,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
             }
             lg_mh = lg_mh + lg_prior;
-            if(lg_mh > log(double(rand()%10001)/10000)){
+            if(lg_mh > log(runif(1.0)(0))){
               beta_tmp(r, j) = beta_new;
               accpt_beta = accpt_beta + 1;
             }
