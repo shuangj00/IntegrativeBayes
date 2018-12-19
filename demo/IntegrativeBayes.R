@@ -1,11 +1,11 @@
 # ***README***
-# The following script is used to fit micribiome count data and covariate data to the 
-# integrative Bayesian zero-inflated negative binomial hierarchical mixture model 
+# The following script is used to fit micribiome count data and covariate data to the
+# integrative Bayesian zero-inflated negative binomial hierarchical mixture model
 # proposed in the manuscript
 
 # Before running the following code, please first load micribiome count data and covariate data.
-# The necessary inputs should be 
-# (1) a n-by-p count matrix Y, where n is the number of samples and p is the number 
+# The necessary inputs should be
+# (1) a n-by-p count matrix Y, where n is the number of samples and p is the number
 # of taxa(feature)
 # (2) a n-by-R covaritae matrix X, where R is the number of covariates
 # (3) a n-dimensional vector z, indicating group allocation for n samples
@@ -15,10 +15,9 @@
 # load functions & data matrices
 # ========================================================================================
 # ========================================================================================
-Rcpp::sourceCpp('ZINBwCOV.cpp');
-source('functions.R');
-load("Example_data.Rdata");
-
+# Rcpp::sourceCpp('ZINBwCOV.cpp');
+# source('functions.R');
+load(system.file("extdata/Example_data.Rdata", package = "IntegrativeBayes"));
 
 # ========================================================================================
 # ========================================================================================
@@ -49,7 +48,7 @@ S.iter = 10000
 burn.in = 0.5
 mu0.start = 10
 res = zinb_w_cov(Y_mat = Y.input,
-                 z_vec = z.vec, 
+                 z_vec = z.vec,
                  s_vec = s.input,
                  X_mat = X.mat,
                  S = S.iter, burn_rate = burn.in,

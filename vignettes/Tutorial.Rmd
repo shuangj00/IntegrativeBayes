@@ -1,23 +1,20 @@
 ---
-title: "Integrative Bayes Model"
-author: "Shuang Jiang et al"
-date: "12/03/2018"
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    theme: yeti
-    keep_md: true
----
+ title: "Integrative Bayes Model"
+ author: "Shuang Jiang et al"
+ date: "12/03/2018"
+ output: rmarkdown::html_vignette
+ vignette: >
+   %\VignetteIndexEntry{Vignette Title}
+   %\VignetteEngine{knitr::rmarkdown}
+   %\VignetteEncoding{UTF-8}
+ ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(
-  fig.path = "Tutorial-figs/fig"
-)
-```
-
+ ```{r setup, include = FALSE}
+ knitr::opts_chunk$set(
+   collapse = TRUE,
+   comment = "#>"
+ )
+ ```
 # Tutorial
 
 The following script is used to fit micribiome count data and covariate data to the 
@@ -36,9 +33,8 @@ You also need to install `Rcpp`, `RcppArmadillo` and `pROC` packages.
 
 ##  Load functions & data matrices
 ```{r load}
-Rcpp::sourceCpp('ZINBwCOV.cpp');
-source('functions.R');
-load("Example_data.Rdata");
+library(IntegrativeBayes)
+load(system.file("extdata/Example_data.Rdata", package = "IntegrativeBayes"));
 ```
 
 ## Preprocessing
