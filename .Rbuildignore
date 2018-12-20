@@ -3,4 +3,4 @@
 ^\.git$
 ^appveyor\.yml$
 .*~$
-doc
+docs
