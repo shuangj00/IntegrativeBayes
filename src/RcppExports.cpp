@@ -41,76 +41,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rnorm_trunc
-double rnorm_trunc(double mu, double sigma, double lower, double upper);
-RcppExport SEXP _IntegrativeBayes_rnorm_trunc(SEXP muSEXP, SEXP sigmaSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
-    Rcpp::traits::input_parameter< double >::type lower(lowerSEXP);
-    Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
-    rcpp_result_gen = Rcpp::wrap(rnorm_trunc(mu, sigma, lower, upper));
-    return rcpp_result_gen;
-END_RCPP
-}
-// exp_rs
-double exp_rs(double a, double b);
-RcppExport SEXP _IntegrativeBayes_exp_rs(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(exp_rs(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// unif_rs
-double unif_rs(double a, double b);
-RcppExport SEXP _IntegrativeBayes_unif_rs(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(unif_rs(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// half_norm_rs
-double half_norm_rs(double a, double b);
-RcppExport SEXP _IntegrativeBayes_half_norm_rs(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(half_norm_rs(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
-// norm_rs
-double norm_rs(double a, double b);
-RcppExport SEXP _IntegrativeBayes_norm_rs(SEXP aSEXP, SEXP bSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(norm_rs(a, b));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_IntegrativeBayes_zinb_w_cov", (DL_FUNC) &_IntegrativeBayes_zinb_w_cov, 25},
-    {"_IntegrativeBayes_rnorm_trunc", (DL_FUNC) &_IntegrativeBayes_rnorm_trunc, 4},
-    {"_IntegrativeBayes_exp_rs", (DL_FUNC) &_IntegrativeBayes_exp_rs, 2},
-    {"_IntegrativeBayes_unif_rs", (DL_FUNC) &_IntegrativeBayes_unif_rs, 2},
-    {"_IntegrativeBayes_half_norm_rs", (DL_FUNC) &_IntegrativeBayes_half_norm_rs, 2},
-    {"_IntegrativeBayes_norm_rs", (DL_FUNC) &_IntegrativeBayes_norm_rs, 2},
     {NULL, NULL, 0}
 };
 

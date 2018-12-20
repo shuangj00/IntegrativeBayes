@@ -9,7 +9,33 @@ double unif_rs(double a, double b);
 double exp_rs(double a, double b);
 double rnorm_trunc(double mu, double sigma, double lower, double upper);
 
-// main function
+//' Main function
+//'
+//' @param Y_mat, abundance matrix
+//' @param X_mat, covariate matrix
+//' @param z_vec, group vector
+//' @param s_vec, scaling factor
+//' @param mu0_mean,  mean
+//' @param tau_mukj default = 1,
+//' @param S default = 20000, 
+//' @param burn_rate default = 0.5,
+//' @param tau_mu0 = 1, 
+//' @param tau_phi = 1, 
+//' @param tau_beta = 1,
+//' @param a_omega default = 0.2, uniform prior 
+//' @param b_omega defeault = 1.8, uniform prior 
+//' @param a_pi default = 1, control the sparsity of R matrix
+//' @param b_pi default = 0.1, control the sparsity of R matrix
+//' @param a_p  default = 0.4, control the sparsity of Delta matrix
+//' @param b_p  default = 1.6, control the sparsity of Delta matrix
+//' @param a_mu default = 2, spike and slab for mu_kj
+//' @param b_mu default = 15, spike and slab for mu_kj
+//' @param a_phi default = 10, dispersion parameter
+//' @param b_phi default = 1, dispersion parameter
+//' @param a_beta default = 2, spike and slab for beta_rj
+//' @param b_beta default = 15, spike and slab for beta_rj
+//' @param phi_low = 1, lower bound of phi
+//' @param beta_lim = 5, limit of beta
 // [[Rcpp::export]]
 List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
              NumericVector z_vec, 
@@ -847,9 +873,6 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
 }
 
 
-
-
-// [[Rcpp::export]]
 double rnorm_trunc(double mu, double sigma, double lower, double upper)
 {
   int change;
@@ -918,7 +941,6 @@ double rnorm_trunc(double mu, double sigma, double lower, double upper)
   return (output);
 }
 
-// [[Rcpp::export]]
 double exp_rs(double a, double b)
 {
   double  z, u, rate;
@@ -944,7 +966,6 @@ double exp_rs(double a, double b)
   return(z+a);
 }
 
-// [[Rcpp::export]]
 double unif_rs(double a, double b)
 {
   double xstar, logphixstar, x, logu;
@@ -971,7 +992,6 @@ double unif_rs(double a, double b)
   return x;
 }
 
-// [[Rcpp::export]]
 double half_norm_rs(double a, double b)
 {
   double x;
@@ -983,7 +1003,6 @@ double half_norm_rs(double a, double b)
   return x;
 }
 
-// [[Rcpp::export]]
 double norm_rs(double a, double b)
 {
   double x;
