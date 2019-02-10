@@ -1,11 +1,11 @@
 Package: IntegrativeBayes
-Title: What the Package Does (One Line, Title Case)
+Title: An Integrative Bayesian Zero-inflated Negative Binomial(ZINB) Regression Model, with Application to Microbiome ‘omics Data Analysis
 Version: 0.0.0.9000
 Authors@R: c(person(given = "Shuang", family = "Jiang", role = c("aut", "cre"), email = "shuangj@mail.smu.edu"),
 	   person(given = "Qiwei", family = "Li", role = c("aut"), email = "qiwei.li@utsouthwestern.edu"),
 	   person(given = "Xiaowei", family = "Zhan", role = c("aut"), email = "xiaowei.zhan@utsouthwestern.edu"))
 Maintainer: Shuang Jiagn <shuangj@mail.smu.edu>
-Description: What the package does (one paragraph).
+Description:Joint analysis of detecting differentially abundant features from high-throughput sequencing count data and quantifying the covariate-feature associations. Provides functions that (1) sets up and fits the integrative Bayesian ZINB regression model, (2) generates numerical and graphical results of fitted models.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
