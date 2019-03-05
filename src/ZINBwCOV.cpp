@@ -9,25 +9,24 @@ double unif_rs(double a, double b);
 double exp_rs(double a, double b);
 double rnorm_trunc(double mu, double sigma, double lower, double upper);
 
-// main function
 // [[Rcpp::export]]
+// main function
 List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
              NumericVector z_vec, 
              NumericVector s_vec,
-             double mu0_mean,
              double tau_mukj = 1,
              int S = 20000, 
              double burn_rate = 0.5,
              double tau_mu0 = 1, 
              double tau_phi = 1, 
              double tau_beta = 1,
-             double a_omega = 0.2, double b_omega = 1.8, // uniform prior 
-             double a_pi = 1, double b_pi = 0.1, // control the sparsity of R matrix
-             double a_p = 0.4, double b_p = 1.6, // control the sparsity of Delta matrix
-             double a_mu = 2, double b_mu = 15, // spike and slab for mu_kj
-             double a_phi = 10, double b_phi = 1, // dispersion parameter
-             double a_beta = 2, double b_beta = 15, // spike and slab for beta_rj
-             double phi_low = 1, 
+             double a_omega = 1, double b_omega = 1, // uniform prior
+             double a_pi = 1, double b_pi = 1, // control the sparsity of R matrix
+             double a_p = 1, double b_p = 1, // control the sparsity of Delta matrix
+             double a_mu = 2, double b_mu = 10, // spike and slab for mu_kj
+             double a_phi = 1, double b_phi = 0.01, // dispersion parameter
+             double a_beta = 2, double b_beta = 10, // spike and slab for beta_rj
+             double mu0_mean = 5,
              double beta_lim = 5
 ){
   // Sample statistics
@@ -145,7 +144,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
   NumericMatrix beta_sum(R, p), delta_sum(R, p);
   NumericMatrix beta_tmp(R, p), delta_tmp(R, p);
   // the number of rows!!!
-  int row_beta = 2 * S * burn_rate * p_filter * 0.8 * R;
+  int row_beta = 2 * S * burn_rate * p_filter *  R;
   int col_beta = 4;
   int index_beta = 0;
   NumericMatrix beta_store(row_beta, col_beta), delta_store(R, p);
@@ -182,10 +181,10 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         do {
           phi_star = rgamma(1, phi_old*phi_old/tau_phi, tau_phi/phi_old)(0);
           count_2++;
-        } while (phi_star < phi_low && count_2 < 1000);
+        } while (phi_star < 2 && count_2 < 1000);
         if (count_2 == 1000)
         {
-          phi_star = phi_low;
+          phi_star = 2;
         }
         double log_mh_prior = (a_phi-1) * (log(phi_star) - log(phi_old)) + b_phi*(phi_old - phi_star);
         if(gamma_tmp[j] == 1){
@@ -209,7 +208,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
             }
           }
           log_mh = log_mh + log_mh_prior;
-          if(log_mh > log(runif(1.0)(0))){
+          if(log_mh > log(double(rand()%10001)/10000)){
             phi_tmp[j] = phi_star;
             accpt_phi = accpt_phi + 1;
             if(s >= S_burn) {
@@ -239,7 +238,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
             }
           }
           log_mh = log_mh + log_mh_prior;
-          if(log_mh > log(runif(1.0)(0))){
+          if(log_mh > log(double(rand()%10001)/10000)){
             phi_tmp[j] = phi_star;
             accpt_phi = accpt_phi + 1;
             if(s >= S_burn) {
@@ -290,7 +289,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
           // hasting ratio:
           log_mh = log_mh + log_mu0_prior;
           
-          if(log_mh > log(runif(1.0)(0))){
+          if(log_mh > log(double(rand()%10001)/10000)){
             mu0_tmp[j] = mu0_star;
             accpt_mu0 = accpt_mu0 + 1;
             mu0_mat(s, j) = mu0_star;
@@ -320,7 +319,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
           }
           // hasting ratio:
           log_mh = log_mh + log_mu0_prior;
-          if(log_mh > log(runif(1.0)(0))){
+          if(log_mh > log(double(rand()%10001)/10000)){
             mu0_tmp[j] = mu0_star;
             accpt_mu0 = accpt_mu0 + 1;
             mu0_mat(s, j) = mu0_star;
@@ -347,9 +346,9 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
       int num_ft_tmp = sum(gamma_tmp);
       ///// Variable selection /////
       // propose a feature to change 1 <-> 0 //:
-      int j_cand = runif(p)(0); // rand()%p;
+      int j_cand = rand()%p;
       while(J_filter[j_cand] != 1) {
-        j_cand = runif(p)(0); // rand()%p;
+        j_cand = rand()%p;
       }
       // update current gamma vector:
       gamma_tmp[j_cand] = 1 - gamma_tmp[j_cand];
@@ -396,7 +395,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         
         // get the hasting ratio:
         log_mh = log_mh + log_prior + log_trans;
-        if(log_mh > log(runif(1.0)(0)))
+        if(log_mh > log(double(rand()%10001)/10000))
         {
           accpt_mu_kj = accpt_mu_kj + 1;
           accpt_gamma = accpt_gamma + 1;
@@ -443,7 +442,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         
         // get the hasting ratio:
         log_mh = log_mh + log_prior + log_trans;
-        if(log_mh > log(runif(1.0)(0)))
+        if(log_mh > log(double(rand()%10001)/10000))
         {
           accpt_mu_kj = accpt_mu_kj + 1;
           accpt_gamma = accpt_gamma + 1;
@@ -606,7 +605,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
         // (1) between model update:
         for(int ss = 0; ss < num_cov; ss++){
           int num_cov_tmp = sum(delta_current);
-          int r_cand = runif(R)(0); // rand()%R;
+          int r_cand = rand()%R;
           delta_current[r_cand] = 1 - delta_current[r_cand];
           if(delta_current[r_cand] == 1){
             // add:
@@ -643,7 +642,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
               
-              if(log_mh > log(runif(1.0)(0)))
+              if(log_mh > log(double(rand()%10001)/10000))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -666,7 +665,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
-              if(log_mh > log(runif(1.0)(0)))
+              if(log_mh > log(double(rand()%10001)/10000))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -710,7 +709,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
               
-              if(log_mh > log(runif(1.0)(0)))
+              if(log_mh > log(double(rand()%10001)/10000))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -732,7 +731,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
               // hasting ratio:
               log_mh = log_mh + log_prior + log_trans;
-              if(log_mh > log(runif(1.0)(0)))
+              if(log_mh > log(double(rand()%10001)/10000))
               {
                 accpt_delta = accpt_delta + 1;
                 accpt_beta = accpt_beta + 1;
@@ -795,7 +794,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
               }
             }
             lg_mh = lg_mh + lg_prior;
-            if(lg_mh > log(runif(1.0)(0))){
+            if(lg_mh > log(double(rand()%10001)/10000)){
               beta_tmp(r, j) = beta_new;
               accpt_beta = accpt_beta + 1;
             }
@@ -820,29 +819,19 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
   } // end of big loop
   List result;
   // MCMC matrices:
-  result["mukj store"] = mu_store; //result["mukj last"] = mu_mat_tmp;
-  result["mu0 est"] = mu0_store / (S * (1.0 - burn_rate)); 
-  result["mu0 store"] = mu0_mat;
-  result["gamma sum store"] = gamma_sum; 
-  result["gamma PPI"] = gamma_PPI / (S * (1.0 - burn_rate));
-  //result["gamma last"] = gamma_tmp;
-  result["phi est"] = phi_store / (S * (1.0 - burn_rate));
-  // result["R sum"] = R_sum; 
-  result["R PPI"] = R_PPI / (S * (1.0 - burn_rate));
-  // result["R last"] = R_tmp;
-  result["beta store"] = beta_store; 
-  result["beta est"] = beta_sum / (2 * S * (1.0 - burn_rate)); 
-  // result["Beta last"] = beta_tmp;
-  // result["delta last"] = delta_tmp;
-  result["delta PPI"] = delta_store /(S * (1.0 - burn_rate)); 
+  result["mukj_store"] = mu_store; 
+  result["mu0_store"] = mu0_mat;
+  result["mu0_posterior_mean"] = mu0_store / (S * (1.0 - burn_rate)); 
+  result["gamma_sum"] = gamma_sum; 
+  result["gamma_PPI"] = gamma_PPI / (S * (1.0 - burn_rate));
+  //result["phi est"] = phi_store / (S * (1.0 - burn_rate));
+  //result["R_sum"] = R_sum; 
+  result["R_PPI"] = R_PPI / (S * (1.0 - burn_rate));
+  //result["R last"] = R_tmp;
+  result["beta_store"] = beta_store; 
+  result["beta_posterior_mean"] = beta_sum / (2 * S * (1.0 - burn_rate)); 
+  result["delta_PPI"] = delta_store /(S * (1.0 - burn_rate)); 
   
-  // all the acceptance rate:
-  // result["gamma accept rate"] = accpt_gamma / (double)prop_gamma;
-  // result["mukj accept rate "] = accpt_mu_kj / (double)prop_mu_kj;
-  // result["mu0 accept rate "] = accpt_mu0 / (double)(S * p_filter);
-  // result["phi accept rate "] = accpt_phi / (double)(S * p_filter);
-  // result["beta accept rate "] = accpt_beta / (double)prop_beta;
-  // result["delta accept rate "] = accpt_delta / (double)prop_delta;
   return result;
 }
 
