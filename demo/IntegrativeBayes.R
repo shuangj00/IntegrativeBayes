@@ -74,8 +74,8 @@ res = zinb_w_cov(Y_mat = Y.input,
 # ========================================================================================
 # ========================================================================================
 ## (1) Variable selection for discriminating features:
-gamma_VS(res$`gamma PPI`, gamma.true = gamma.vec)
+gamma_VS(res$gamma_PPI, gamma.true = gamma.vec)
 par(mar=c(5.1, 4.1, 4.1, 2.1))
 
 ## (2) Variable selection for significant feature-covariate association:
-delta_ROC(as.vector(res$`delta PPI`), as.vector(abs(delta.mat)))
+delta_ROC(as.vector(res$delta_PPI), as.vector(abs(delta.mat)))
