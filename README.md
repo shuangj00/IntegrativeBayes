@@ -8,6 +8,9 @@ For a quick start, please read [Tutorial.md](https://zhanxw.github.io/Integrativ
 Contact
 -------
 Shuang Jiang
+
 Department of Statistical Science
+
 Southern Methodist University
+
 Dallas, TX 75275
