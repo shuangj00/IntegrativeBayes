@@ -1,0 +1,110 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+---
+ title: "Integrative Bayes Model"
+ author: "Shuang Jiang et al"
+ date: "12/03/2018"
+ output: rmarkdown::html_vignette
+ vignette: >
+   %\VignetteIndexEntry{Vignette Title}
+   %\VignetteEngine{knitr::rmarkdown}
+   %\VignetteEncoding{UTF-8}
+ ---
+
+ ```{r setup, include = FALSE}
+ knitr::opts_chunk$set(
+   collapse = TRUE,
+   comment = "#>"
+ )
+ ```
+# Tutorial
+
+The following script is used to fit micribiome count data and covariate data to the 
+integrative Bayesian zero-inflated negative binomial hierarchical mixture model 
+proposed in the manuscript
+
+Before running the following code, please first load micribiome count data and covariate data.
+The necessary inputs should be
+
+1. a n-by-p count matrix Y, where n is the number of samples and p is the number 
+of taxa(feature)
+2. a n-by-R covaritae matrix X, where R is the number of covariates
+3. a n-dimensional vector z, indicating group allocation for n samples. Currently, we support the analysis of 2 phenotypes, and each element in vector z takes the value of 1 or 2.
+
+You also need to install `Rcpp`, `RcppArmadillo` and `pROC` packages.
+
+##  Load functions & data matrices
+```{r load}
+library(IntegrativeBayes)
+load(system.file("extdata/Example_data.Rdata", package = "IntegrativeBayes"));
+```
+
+## Preprocessing
+```{r preprocess}
+# keep the features that have at least 2 observed counts for both groups:
+Y.input = Y.filter(Y.mat, zvec = z.vec, min.number = 2)[[2]]
+# estimate the size factor s from the count matrix Y:
+s.input = sizefactor.estimator(Y.mat)
+```
+
+## Get true label for later visualization
+```{r label}
+feature.remain = which(Y.filter(Y.mat, zvec = z.vec, min.number = 2)[[1]] == 1)
+gamma.vec = gamma.vec[feature.remain]
+delta.mat = delta.mat[,feature.remain]
+```
+
+## Implement MCMC algorithm
+```{r mcmc}
+S.iter = 10000
+burn.in = 0.5
+res = zinb_w_cov(Y_mat = Y.input,
+                 z_vec = z.vec, 
+                 s_vec = s.input,
+                 X_mat = X.mat,
+                 S = S.iter, burn_rate = burn.in)
+```
+
+The MCMC outputs are stored in `res`:
+    $mu0_posterior_mean: posterior mean(after burn-in) for the vector mu(0j)
+    $beta_posterior_mean: posterior mean(after burn-in) for the Beta matrix
+    $gamma_PPI: PPI for all gamma(j) after burn-in
+    $delta_PPI: PPI for all delta(rj) fter burn-in
+    $R_PPI: PPI for all r(ij) after burn-in
+    $gamma_sum: sum of all gamma(j) for each iteration
+    $mukj_store: MCMC draws for mu(kj) after burn-in (k = 1; j = 1,...,p)
+    $mu0_store: MCMC draws for mu(0j) after burn-in (j = 1, ..., p)
+    $beta_store: MCMC draws for beta(rj) after burn-in (r = 1, .., R; j = 1, ..., p )
+
+## Visualizing the results for two variable selection processes
+
+### Variable selection for discriminating features
+
+The stem-plot showed the selected features passing Bayesian FDR threshold.
+
+```{r visualization}
+gamma_VS(res$gamma_PPI, gamma.true = gamma.vec)
+par(mar=c(5.1, 4.1, 4.1, 2.1))
+```
+
+### Variable selection for significant feature-covariate association
+
+The ROC plot was used to benchmark the performance of detecting microbiome-covariate associations.
+
+```{r visualization2}
+delta_ROC(as.vector(res$delta_PPI), as.vector(abs(delta.mat)))
+```
+
+
+# Citation
+
+S. Jiang, G. Xiao, A. Y. Koh, Q. Li, and X. Zhan, "A Bayesian Zero-Inflated Negative Binomial Regression Model for the Integrative Analysis of Microbiome Data".
+
+# Contact 
+
+Shuang Jiang <shuangj@smu.edu>
+Last updated on Mar 5, 2019.
+
