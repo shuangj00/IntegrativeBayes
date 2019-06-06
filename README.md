@@ -12,7 +12,7 @@ To install our package:
     # Install release version from CRAN
     install.packages("devtools")
     # Install development version from GitHub
-    devtools::install_github("XXXX")
+    devtools::install_github("shuangj00/IntegrativeBayes")
 
 For a quick start, please read [Tutorial.md](http://htmlpreview.github.io/?https://github.com/shuangj00/IntegrativeBayes/blob/master/doc/Tutorial.html).
 
