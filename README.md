@@ -10,9 +10,9 @@ This is the GitHub repository for our manuscript "A Bayesian Zero-Inflated Negat
 To install our package:
 
     # Install release version from CRAN
-    install.packages("pkgdown")
+    install.packages("devtools")
     # Install development version from GitHub
-    devtools::install_github("r-lib/pkgdown")
+    devtools::install_github("XXXX")
 
 For a quick start, please read [Tutorial.md](http://htmlpreview.github.io/?https://github.com/shuangj00/IntegrativeBayes/blob/master/doc/Tutorial.html).
 

@@ -4,3 +4,5 @@
 ^appveyor\.yml$
 .*~$
 docs
+^.*\.Rproj$
+^\.Rproj\.user$
