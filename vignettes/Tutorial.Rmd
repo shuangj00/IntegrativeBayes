@@ -84,7 +84,7 @@ The MCMC outputs are stored in `res`:
 The stem-plot showed the selected features passing Bayesian FDR threshold.
 
 ```{r visualization}
-gamma_VS(res$`gamma PPI`, gamma.true = gamma.vec)
+gamma_VS(res$gamma_PPI, gamma.true = gamma.vec)
 par(mar=c(5.1, 4.1, 4.1, 2.1))
 ```
 
@@ -93,16 +93,17 @@ par(mar=c(5.1, 4.1, 4.1, 2.1))
 The ROC plot was used to benchmark the performance of detecting microbiome-covariate associations.
 
 ```{r visualization2}
-delta_ROC(as.vector(res$`delta PPI`), as.vector(abs(delta.mat)))
+delta_ROC(as.vector(res$delta_PPI), as.vector(abs(delta.mat)))
 ```
 
 
 # Citation
 
-We will update this section shortly.
+Shuang Jiang, Guanghua Xiao, Andrew Y. Koh, Qiwei Li, Xiaowei Zhan (2018), A Bayesian Zero-Inflated Negative Binomial Regression Model for the Integrative Analysis of Microbiome Data, arXiv:1812.09654. [link](https://arxiv.org/pdf/1812.09654).
 
 # Contact 
 
-Shuang Jiang <XXX>
-Last updated on December 3, 2018.
+Shuang Jiang <shuangj@mail.smu.edu>
+Last updated on June 6, 2019.
+
 
