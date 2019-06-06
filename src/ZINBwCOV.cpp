@@ -9,8 +9,8 @@ double unif_rs(double a, double b);
 double exp_rs(double a, double b);
 double rnorm_trunc(double mu, double sigma, double lower, double upper);
 
-// [[Rcpp::export]]
 // main function
+// [[Rcpp::export]]
 List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
              NumericVector z_vec, 
              NumericVector s_vec,
