@@ -1,13 +1,13 @@
 ---
- title: "Integrative Bayes Model"
- author: "Shuang Jiang et al"
- date: "12/03/2018"
- output: rmarkdown::html_vignette
- vignette: >
-   %\VignetteIndexEntry{Vignette Title}
-   %\VignetteEngine{knitr::rmarkdown}
-   %\VignetteEncoding{UTF-8}
- ---
+title: "Integrative Bayes Model"
+author: "Shuang Jiang et al"
+date: "12/03/2018"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
  ```{r setup, include = FALSE}
  knitr::opts_chunk$set(
