@@ -1,6 +1,6 @@
 Package: IntegrativeBayes
 Title: An Integrative Bayesian Zero-inflated Negative Binomial(ZINB) Regression Model, with Application to Microbiome ‘omics Data Analysis
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: c(person(given = "Shuang", family = "Jiang", role = c("aut", "cre"), email = "shuangj@mail.smu.edu"),
 	   person(given = "Qiwei", family = "Li", role = c("aut"), email = "qiwei.li@utsouthwestern.edu"),
 	   person(given = "Xiaowei", family = "Zhan", role = c("aut"), email = "xiaowei.zhan@utsouthwestern.edu"))
@@ -19,3 +19,4 @@ Suggests:
     rmarkdown
 Depends: pROC
 VignetteBuilder: knitr
+URL: https://github.com/shuangj00/IntegrativeBayes, https://shuangj00.github.io/IntegrativeBayes/index.html

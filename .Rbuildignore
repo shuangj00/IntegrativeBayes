@@ -1,1 +1,8 @@
-^LICENSE\.md$
+^\.gitignore$
+^\.travis\.yml$
+^\.git$
+^appveyor\.yml$
+.*~$
+docs
+^.*\.Rproj$
+^\.Rproj\.user$
