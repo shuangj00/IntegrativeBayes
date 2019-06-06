@@ -14,7 +14,7 @@ To install our package:
     # Install development version from GitHub
     devtools::install_github("XXXX")
 
-For a quick start, please read [Tutorial.md](http://htmlpreview.github.io/?https://github.com/shuangj00/IntegrativeBayes/blob/master/doc/Tutorial.html).
+For a quick start, please read [Tutorial.md](https://shuangj00.github.io/IntegrativeBayes/articles/Tutorial.html).
 
 To learn more about our methods or to cite our work
 
