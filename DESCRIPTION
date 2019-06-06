@@ -19,3 +19,4 @@ Suggests:
     rmarkdown
 Depends: pROC
 VignetteBuilder: knitr
+URL: https://github.com/shuangj00/IntegrativeBayes, https://shuangj00.github.io/IntegrativeBayes/index.html
