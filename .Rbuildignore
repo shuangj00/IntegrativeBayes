@@ -1,3 +1,4 @@
+..Rcheck
 ^\.gitignore$
 ^\.travis\.yml$
 ^\.git$
