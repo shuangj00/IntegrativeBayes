@@ -7,3 +7,4 @@ docs
 ^.*\.Rproj$
 ^\.Rproj\.user$
 LICENSE.md
+^binder

@@ -20,9 +20,11 @@ To learn more about our methods or to cite our work
 
 Shuang Jiang, Guanghua Xiao, Andrew Y. Koh, Qiwei Li, Xiaowei Zhan (2018), A Bayesian Zero-Inflated Negative Binomial Regression Model for the Integrative Analysis of Microbiome Data, arXiv:1812.09654. [link](https://arxiv.org/pdf/1812.09654).
 
+To try our package online, click this [button](https://mybinder.org/v2/gh/shuangj00/IntegrativeBayes/master?urlpath=rstudio), and type `demo(IntegrativeBayes)` in the popped up RStudio console.
+
 Contact
 -------
-Shuang Jiang
-Department of Statistical Science
-Southern Methodist University
+Shuang Jiang,
+Department of Statistical Science,
+Southern Methodist University,
 Dallas, TX 75275
