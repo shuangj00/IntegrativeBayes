@@ -103,7 +103,7 @@
 <div id="load-functions-data-matrices" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-functions-data-matrices" class="anchor"></a>Load functions &amp; data matrices</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(IntegrativeBayes)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(IntegrativeBayes)
 <span class="co">#&gt; Loading required package: pROC</span>
 <span class="co">#&gt; Warning: package 'pROC' was built under R version 3.5.2</span>
 <span class="co">#&gt; Type 'citation("pROC")' for a citation.</span>
@@ -112,29 +112,29 @@
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     cov, smooth, var</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/Example_data.Rdata"</span>, <span class="dt">package =</span> <span class="st">"IntegrativeBayes"</span>));</code></pre>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/Example_data.Rdata"</span>, <span class="dt">package =</span> <span class="st">"IntegrativeBayes"</span>));</code></pre></div>
 </div>
 <div id="preprocessing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preprocessing" class="anchor"></a>Preprocessing</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># keep the features that have at least 2 observed counts for both groups:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># keep the features that have at least 2 observed counts for both groups:</span>
 Y.input =<span class="st"> </span><span class="kw"><a href="../reference/Y.filter.html">Y.filter</a></span>(Y.mat, <span class="dt">zvec =</span> z.vec, <span class="dt">min.number =</span> <span class="dv">2</span>)[[<span class="dv">2</span>]]
 <span class="co">#&gt; 300 out of 300 features are kept.</span>
 <span class="co"># estimate the size factor s from the count matrix Y:</span>
-s.input =<span class="st"> </span><span class="kw"><a href="../reference/sizefactor.estimator.html">sizefactor.estimator</a></span>(Y.mat)</code></pre>
+s.input =<span class="st"> </span><span class="kw"><a href="../reference/sizefactor.estimator.html">sizefactor.estimator</a></span>(Y.mat)</code></pre></div>
 </div>
 <div id="get-true-label-for-later-visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-true-label-for-later-visualization" class="anchor"></a>Get true label for later visualization</h2>
-<pre class="sourceCode r"><code class="sourceCode r">feature.remain =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="kw"><a href="../reference/Y.filter.html">Y.filter</a></span>(Y.mat, <span class="dt">zvec =</span> z.vec, <span class="dt">min.number =</span> <span class="dv">2</span>)[[<span class="dv">1</span>]] ==<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">feature.remain =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="kw"><a href="../reference/Y.filter.html">Y.filter</a></span>(Y.mat, <span class="dt">zvec =</span> z.vec, <span class="dt">min.number =</span> <span class="dv">2</span>)[[<span class="dv">1</span>]] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; 300 out of 300 features are kept.</span>
 gamma.vec =<span class="st"> </span>gamma.vec[feature.remain]
-delta.mat =<span class="st"> </span>delta.mat[,feature.remain]</code></pre>
+delta.mat =<span class="st"> </span>delta.mat[,feature.remain]</code></pre></div>
 </div>
 <div id="implement-mcmc-algorithm" class="section level2">
 <h2 class="hasAnchor">
 <a href="#implement-mcmc-algorithm" class="anchor"></a>Implement MCMC algorithm</h2>
-<pre class="sourceCode r"><code class="sourceCode r">S.iter =<span class="st"> </span><span class="dv">10000</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">S.iter =<span class="st"> </span><span class="dv">10000</span>
 burn.in =<span class="st"> </span><span class="fl">0.5</span>
 mu0.start =<span class="st"> </span><span class="dv">10</span>
 res =<span class="st"> </span><span class="kw"><a href="../reference/zinb_w_cov.html">zinb_w_cov</a></span>(<span class="dt">Y_mat =</span> Y.input,
@@ -152,7 +152,7 @@ res =<span class="st"> </span><span class="kw"><a href="../reference/zinb_w_cov.
 <span class="co">#&gt; 60% has been done</span>
 <span class="co">#&gt; 70% has been done</span>
 <span class="co">#&gt; 80% has been done</span>
-<span class="co">#&gt; 90% has been done</span></code></pre>
+<span class="co">#&gt; 90% has been done</span></code></pre></div>
 <p>The MCMC outputs are stored in <code>res</code>: $<code>mu0 est</code>: posterior mean(after burn-in) for the vector mu(0j) $<code>phi est</code>: posterior mean(after burn-in) for the dispersion parameter vector $<code>beta est</code>: posterior mean(after burn-in) for the Beta matrix $<code>gamma PPI</code>: PPI for all gamma(j) after burn-in $<code>delta PPI</code>: PPI for all delta(rj) fter burn-in $<code>R PPI</code>: PPI for all r(ij) after burn-in $<code>gamma sum</code>: sum of all gamma(j) for all iterations $<code>mukj full</code>: MCMC draws for mu(kj) after burn-in $<code>mu0 full</code>: MCMC draws for mu(0j) after burn-in $<code>beta full</code>: MCMC draws for beta(rj) after burn-in</p>
 </div>
 <div id="visualizing-the-results-for-two-variable-selection-processes" class="section level2">
@@ -162,17 +162,17 @@ res =<span class="st"> </span><span class="kw"><a href="../reference/zinb_w_cov.
 <h3 class="hasAnchor">
 <a href="#variable-selection-for-discriminating-features" class="anchor"></a>Variable selection for discriminating features</h3>
 <p>The stem-plot showed the selected features passing Bayesian FDR threshold.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gamma_VS.html">gamma_VS</a></span>(res$gamma_PPI, <span class="dt">gamma.true =</span> gamma.vec)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gamma_VS.html">gamma_VS</a></span>(res<span class="op">$</span>gamma_PPI, <span class="dt">gamma.true =</span> gamma.vec)</code></pre></div>
 <p><img src="Tutorial_files/figure-html/visualization-1.png" width="700"></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>))</code></pre></div>
 </div>
 <div id="variable-selection-for-significant-feature-covariate-association" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variable-selection-for-significant-feature-covariate-association" class="anchor"></a>Variable selection for significant feature-covariate association</h3>
 <p>The ROC plot was used to benchmark the performance of detecting microbiome-covariate associations.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/delta_ROC.html">delta_ROC</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(res$delta_PPI), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(delta.mat)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/delta_ROC.html">delta_ROC</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(res<span class="op">$</span>delta_PPI), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">as.vector</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(delta.mat)))
 <span class="co">#&gt; Setting levels: control = 0, case = 1</span>
-<span class="co">#&gt; Setting direction: controls &lt; cases</span></code></pre>
+<span class="co">#&gt; Setting direction: controls &lt; cases</span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/visualization2-1.png" width="700"></p>
 </div>
 </div>
