@@ -34,7 +34,6 @@ double rnorm_trunc(double mu, double sigma, double lower, double upper);
 //' @param b_phi default = 1, dispersion parameter
 //' @param a_beta default = 2, spike and slab for beta_rj
 //' @param b_beta default = 15, spike and slab for beta_rj
-//' @param phi_low = 1, lower bound of phi
 //' @param beta_lim = 5, limit of beta
 // [[Rcpp::export]]
 List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
