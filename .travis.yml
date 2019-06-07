@@ -13,3 +13,13 @@ r_binary_packages:
  - pROC
  - knitr
  - rmarkdown
+
+## CI updates pkgdown
+before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+
+after_success:
+  - Rscript -e 'pkgdown::build_site()'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
