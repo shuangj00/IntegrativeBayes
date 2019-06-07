@@ -233,7 +233,7 @@ List zinb_w_cov(NumericMatrix Y_mat, NumericMatrix X_mat,
             }
           }
           log_mh = log_mh + log_mh_prior;
-          if(log_mh > log(runif(1)){
+          if(log_mh > log(runif(1))){
             phi_tmp[j] = phi_star;
             accpt_phi = accpt_phi + 1;
             if(s >= S_burn) {
