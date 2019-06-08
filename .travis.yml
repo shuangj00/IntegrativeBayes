@@ -3,6 +3,12 @@ cache: packages
 r:
   - oldrel
   - release
+    ## CI updates pkgdown
+    before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github()'
+      skip_cleanup: true
   - devel
 
 # Cannot set this to false, as zstd package have warnings
@@ -14,12 +20,4 @@ r_binary_packages:
  - knitr
  - rmarkdown
 
-## CI updates pkgdown
-before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
 
-after_success:
-  - Rscript -e 'pkgdown::build_site()'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
