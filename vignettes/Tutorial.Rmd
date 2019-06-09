@@ -104,5 +104,5 @@ Shuang Jiang, Guanghua Xiao, Andrew Y. Koh, Qiwei Li, Xiaowei Zhan (2018), A Bay
 # Contact 
 
 Shuang Jiang <shuangj@mail.smu.edu>
-Last updated on June 6, 2019. Build on `r params$date`.
+Last updated on June 6, 2019. Build on `r Sys.Date()`.
 
