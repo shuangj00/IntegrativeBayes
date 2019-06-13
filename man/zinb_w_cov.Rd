@@ -58,8 +58,6 @@ zinb_w_cov(Y_mat, X_mat, z_vec, s_vec, tau_mukj = 1, S = 20000L,
 \item{mu0_mean, }{mean}
 
 \item{beta_lim}{= 5, limit of beta}
-
-\item{phi_low}{= 1, lower bound of phi}
 }
 \description{
 Main function
