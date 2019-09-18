@@ -33,6 +33,7 @@ Y.filter = function(Ycount, zvec, min.number = 2){
 }
 
 #' estimate size factor s(vector)
+#' *The resulted si's have the product of 1. (commonly used strategy in many methods such as DESeq2 and edgeR in calculating the normalization factor)
 #'
 #' @param Ycount a n-by-p count matrix Y, where n is the number of samples and p is the number of taxa(feature)
 #' @export
