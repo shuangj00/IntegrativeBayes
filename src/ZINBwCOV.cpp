@@ -11,8 +11,8 @@ double rnorm_trunc(double mu, double sigma, double lower, double upper);
 
 //' Main function
 //'
-//' @param Y_mat, abundance matrix
-//' @param X_mat, covariate matrix
+//' @param Y_mat, n-by-p abundance matrix
+//' @param X_mat, n-by-R covariate matrix
 //' @param z_vec, group vector
 //' @param s_vec, scaling factor
 //' @param mu0_mean,  mean

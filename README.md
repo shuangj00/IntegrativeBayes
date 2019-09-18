@@ -14,9 +14,9 @@ To install our package:
     # Install development version from GitHub
     devtools::install_github("shuangj00/IntegrativeBayes")
 
-For a quick start, please read [Tutorial.md](https://shuangj00.github.io/IntegrativeBayes/articles/Tutorial.html).
+For a quick start, please read [this tutorial page](https://shuangj00.github.io/IntegrativeBayes/articles/Tutorial.html).
 
-To learn more about our methods or to cite our work
+To learn more about our methods or to cite our work, please refer:
 
 Shuang Jiang, Guanghua Xiao, Andrew Y. Koh, Qiwei Li, Xiaowei Zhan (2018), A Bayesian Zero-Inflated Negative Binomial Regression Model for the Integrative Analysis of Microbiome Data, arXiv:1812.09654. [link](https://arxiv.org/pdf/1812.09654).
 
