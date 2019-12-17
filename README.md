@@ -24,6 +24,13 @@ To try our package online, click  [![Binder](https://mybinder.org/badge_logo.svg
 
     library(IntegrativeBayes)
     demo(IntegrativeBayes)
+    
+Citation
+-------
+
+This paper has been accepted by Biostatistics.
+
+Here is the arXiv link https://arxiv.org/abs/1812.09654.
 
 Contact
 -------
