@@ -34,7 +34,7 @@ Here is the arXiv link https://arxiv.org/abs/1812.09654.
 
 Contact
 -------
-Shuang Jiang,
+Shuang Jiang (shuangj@smu.edu),
 Department of Statistical Science,
 Southern Methodist University,
 Dallas, TX 75275
