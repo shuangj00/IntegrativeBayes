@@ -30,7 +30,7 @@ Citation
 
 This paper has been accepted by Biostatistics.
 
-Here is the arXiv link https://arxiv.org/abs/1812.09654.
+Here is the link https://academic.oup.com/biostatistics/advance-article/doi/10.1093/biostatistics/kxz050/5679577?guestAccessKey=21a53933-2ba6-4786-bfd0-4f23dcddab37
 
 Contact
 -------
